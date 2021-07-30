@@ -37,7 +37,7 @@ public class User implements UserDetails {
     @ManyToMany
     private List<User> contacts;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Authority> authorities;
 
     @Override

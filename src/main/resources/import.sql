@@ -1,0 +1,1 @@
+INSERT INTO customer (id, email, password, remember_me, sold) VALUES (1, 'test@yopmail.com', '$2a$10$.NSIwXrQoaSy1SFwJH3O2eUUho4FS8xOpiM94K3Cx5JrRkpmVSJoi', true, 130);
