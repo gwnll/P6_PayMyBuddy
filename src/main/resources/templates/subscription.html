@@ -1,17 +1,32 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Inscription</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
 </head>
 <body>
 
+<header>
+    <ul>
+        <li><a href="/login">S'identifier</a></li>
+    </ul>
+</header>
+
+<div class="banner"></div>
+
+<main>
+
 <h1>S'inscrire sur Pay My Buddy</h1>
+<p class="introduction"> Vous souhaitez vous inscrire sur Pay My Buddy ? Rien de plus simple !
+    <br/>Renseignez votre adresse email (celle-ci vous servira afin de vous connecter à votre compte) ainsi que votre mot de passe et le tour est joué.</p>
+    <div th:if="${error != null}" class="error-message"><p th:utext="${error}"></p></div>
 <form th:action="@{/subscribe}" method="post">
-    <p>Email : <input type="email" th:name="email"/></p>
-    <p>Password : <input type="password" th:name="password"/></p>
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    <div class="form-element"><label>Email :</label> <input type="email" th:name="email"/></div>
+    <div class="form-element"><label>Password :</label> <input type="password" th:name="password"/></div>
+    <p><input type="submit" value="Envoyer" /> <input type="reset" value="Réinitialiser" /></p>
 </form>
+</main>
 </body>
 </html>

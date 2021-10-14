@@ -4,15 +4,54 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Welcome</title>
-    <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/css/style.css"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
 </head>
 <body>
-<h1>Welcome</h1>
-<h2><span>Coucou</span> <span th:text="${message}"></span></h2>
+
+<header>
+    <ul>
+        <li><a href="">Accueil</a></li>
+        <li><a href="/bankAccount">Mon compte</a></li>
+        <li><a href="/contacts">Contacts</a></li>
+        <li><a href="/transactions">Transactions</a></li>
+    </ul>
+</header>
+
+<div class="banner"></div>
+
+<main>
+
+    <h1>Pay My Buddy</h1>
+    <img src="/img/svg/transfer.svg" class="transfer">
+    <h2>We make moving your money easy!</h2>
 
 
-<a href="${pageContext.request.contextPath}/usersList">Users List</a>
+    <div class="solde-compte">
+        <p>Mon solde est de : <strong th:utext="${sold}"></strong> €</p>
+        <img src="/img/svg/wallet.svg">
+    </div>
+
+    <article>
+        <div>
+            <a href="/contacts"><h3>Mes contacts</h3></a>
+            <div class="image"><img src="/img/svg/contact.svg"></div>
+        </div>
+        <div>
+            <div class="image"><img src="/img/svg/payment.svg"></div>
+            <a href="/bankAccount"><h3>Mon compte</h3></a>
+        </div>
+        <div>
+            <a href="/transactions"><h3>Mes transactions</h3></a>
+            <div class="image"><img src="/img/svg/transaction.svg"></div>
+        </div>
+    </article>
+
+
+<!--    <a href="/users">Liste des utilisateurs (admin)</a>-->
+
+</main>
+
+<footer><p>Copyright © 2021 Pay My Buddy - Tous droits réservés</p></footer>
 
 </body>
 

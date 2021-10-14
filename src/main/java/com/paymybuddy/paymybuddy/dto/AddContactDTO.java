@@ -1,4 +1,4 @@
-package com.paymybuddy.paymybuddy.controller.dto;
+package com.paymybuddy.paymybuddy.dto;
 
 import lombok.Data;
 

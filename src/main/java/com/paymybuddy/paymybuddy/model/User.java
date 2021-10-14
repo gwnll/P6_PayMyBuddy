@@ -1,12 +1,9 @@
 package com.paymybuddy.paymybuddy.model;
 
 import lombok.Data;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -19,26 +16,32 @@ public class User implements UserDetails {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "remember_me")
-    private boolean rememberMe;
-
     @Column(name = "sold")
-    private int sold;
+    private double sold;
 
-    @OneToOne
-    private BankAccount bankAccount;
+    @Column(name = "iban")
+    private String iban;
 
     @ManyToMany
     private List<User> contacts;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Authority> authorities;
+
+    @OneToMany(mappedBy = "user")
+    private List<Transaction> transactions;
+
+    @OneToMany(mappedBy = "sender")
+    private List<InternalTransaction> internalTransactionsAsSender;
+
+    @OneToMany(mappedBy = "receiver")
+    private List<InternalTransaction> internalTransactionsAsReceiver;
 
     @Override
     public String getUsername() {

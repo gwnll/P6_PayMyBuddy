@@ -1,6 +1,5 @@
-package com.paymybuddy.paymybuddy.controller.dto;
+package com.paymybuddy.paymybuddy.dto;
 
-import com.paymybuddy.paymybuddy.model.User;
 import lombok.Data;
 
 @Data

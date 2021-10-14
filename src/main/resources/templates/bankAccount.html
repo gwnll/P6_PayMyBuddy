@@ -1,25 +1,44 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <meta charset="UTF-8" />
-    <title>Users List</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <meta charset="UTF-8"/>
+    <title>Mon compte</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
 </head>
 <body>
-<h1>Users List</h1>
-<!--<a href="addPerson">Add Person</a>-->
+
+<header>
+    <ul>
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/bankAccount">Mon compte</a></li>
+        <li><a href="/contacts">Contacts</a></li>
+        <li><a href="/transactions">Transactions</a></li>
+    </ul>
+</header>
+
+<main>
+
+<h1>Mon compte</h1>
+
 <br/><br/>
 <div>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>email</th>
-        </tr>
-        <tr th:each ="user : ${users}">
-            <td th:utext="${user.id}">...</td>
-            <td th:utext="${user.email}">...</td>
-        </tr>
-    </table>
+    <div th:if="${bankAccount}">
+        <p>iban : <span th:utext="${bankAccount}">...</span></p>
+    </div>
+
+    <div th:unless="${bankAccount}">
+        Veuillez ajouter un compte bancaire
+    </div>
+
+    <h1 th:unless="${bankAccount}">Ajouter un compte bancaire</h1>
+    <h1 th:if="${bankAccount}">Modifier un compte bancaire</h1>
+    <form th:action="@{/editBankAccount}" method="post">
+        <p>Iban: <input type="text" th:name="iban"/></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+
 </div>
+</main>
 </body>
 </html>

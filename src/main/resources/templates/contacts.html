@@ -1,33 +1,52 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <meta charset="UTF-8" />
-    <title>Contacts List</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <meta charset="UTF-8"/>
+    <title>Contacts</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
 </head>
 <body>
-<h1>Contacts List</h1>
+
+<header>
+    <ul>
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/bankAccount">Mon compte</a></li>
+        <li><a href="/contacts">Contacts</a></li>
+        <li><a href="/transactions">Transactions</a></li>
+    </ul>
+</header>
+
+<main>
+
+<h1>Contacts</h1>
 
 <br/><br/>
 <div>
-    <table border="1" th:if="${contacts.size() > 0}">
-        <tr>
-            <th>ID</th>
-            <th>email</th>
-        </tr>
-        <tr th:each ="contact : ${contacts}">
-            <td th:utext="${contact.id}">...</td>
-            <td th:utext="${contact.email}">...</td>
-        </tr>
-    </table>
+    <h2>Liste de contacts</h2>
+
+    <ul th:if="${contacts.size() > 0}" class="contacts">
+
+        <li th:each ="contact : ${contacts}">
+            <span th:utext="${contact.email}">...</span>
+        </li>
+    </ul>
+
     <div th:unless="${contacts.size() > 0}">
         Vous n'avez pas encore de contacts
     </div>
-    <h1>Ajouter un contact</h1>
-    <form action="#" th:action="@{/contacts}" method="put">
-        <p>Adresse e-mail: <input type="text" th:value="${contactName}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+
+    <h2>Ajouter un contact</h2>
+
+    <form th:action="@{/addContact}" method="post">
+        <p>Adresse e-mail: <input type="text" th:name="contactName"/></p>
+        <p><input type="submit" value="Ajouter" /> <input type="reset" value="Réinitialiser" /></p>
     </form>
+
+    <div th:if="${error != null}" class="error-message"><p th:utext="${error}"></p></div>
+
 </div>
+
+</main>
 </body>
 </html>

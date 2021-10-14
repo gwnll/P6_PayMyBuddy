@@ -1,33 +1,79 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-    <meta charset="UTF-8" />
-    <title>Contacts List</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <meta charset="UTF-8"/>
+    <title>Transactions</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
 </head>
-<body>
-<h1>Contacts List</h1>
+<body id="transactions-page">
 
-<br/><br/>
+<header>
+    <ul>
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/bankAccount">Mon compte</a></li>
+        <li><a href="/contacts">Contacts</a></li>
+        <li><a href="/transactions">Transactions</a></li>
+        <li><a href="/logout">Se déconnecter</a></li>
+    </ul>
+</header>
+
+<div class="banner"></div>
+
+<nav id="breadcrumb"><a href="/">Accueil</a> / <a href="/transactions">Transactions</a></nav>
+
+<div class="solde-compte">
+    <p>Mon solde est de : <strong th:utext="${sold}"></strong> €</p>
+    <img src="/img/svg/wallet.svg">
+</div>
+
+<h1>Débiter ou créditer votre compte</h1>
+<form th:action="@{/editSold}" method="post">
+    <select th:name="type">
+        <option th:value="débit" th:text="débit"></option>
+        <option th:value="crédit" th:text="crédit"></option>
+    </select>
+
+    <p>Montant : <input type="number" th:name="amount"/></p>
+
+    <p class="actions"><input type="submit" value="Envoyer" /> <input type="reset" value="Réinitialiser" /></p>
+</form>
+
+<h1>Effectuer une transaction</h1>
+<form th:action="@{/sendMoney}" method="post">
+    <p>Choisir un contact :</p>
+    <select th:name="contactName">
+        <option></option>
+        <option th:each ="contact : ${contacts}" th:value="${contact.email}" th:text="${contact.email}"></option>
+    </select>
+    <p>Montant : <input type="number" th:name="amount"/></p>
+    <p>Description :
+        <input type="text" th:name="description"></p>
+    <p class="actions"><input type="submit" value="Envoyer" /> <input type="reset" value="Réinitialiser" /></p>
+</form>
+
+<h1>Historique des transactions</h1>
 <div>
-    <table border="1" th:if="${contacts.size() > 0}">
+    <table border="1" th:if="${transactions.size() > 0}">
         <tr>
-            <th>ID</th>
-            <th>email</th>
+            <th>Montant</th>
+            <th>Description</th>
+            <th>Interne / Externe</th>
+            <th>Date</th>
         </tr>
-        <tr th:each ="contact : ${contacts}">
-            <td th:utext="${contact.id}">...</td>
-            <td th:utext="${contact.email}">...</td>
+        <tr th:each ="transaction : ${transactions}">
+            <td th:utext="${transaction.amount}">...</td>
+            <td th:if="${transaction.isInternal()}" th:utext="${transaction.description}"></td>
+            <td th:unless="${transaction.isInternal()}">Est externe</td>
+            <td th:text="${#temporals.format(transaction.date, 'dd-MM-yyyy HH:mm')}"></td>
+
         </tr>
     </table>
-    <div th:unless="${contacts.size() > 0}">
-        Vous n'avez pas encore de contacts
+
+    <div th:unless="${transactions.size() > 0}">
+        Vous n'avez pas encore effectué de transaction
     </div>
-    <h1>Ajouter un contact</h1>
-    <form th:action="@{/addContact}" method="post">
-        <p>Adresse e-mail: <input type="text" th:name="contactName"/></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-    </form>
+
 </div>
 </body>
 </html>
