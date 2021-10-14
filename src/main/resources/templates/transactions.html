@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Contacts List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Contacts List</h1>
+
+<br/><br/>
+<div>
+    <table border="1" th:if="${contacts.size() > 0}">
+        <tr>
+            <th>ID</th>
+            <th>email</th>
+        </tr>
+        <tr th:each ="contact : ${contacts}">
+            <td th:utext="${contact.id}">...</td>
+            <td th:utext="${contact.email}">...</td>
+        </tr>
+    </table>
+    <div th:unless="${contacts.size() > 0}">
+        Vous n'avez pas encore de contacts
+    </div>
+    <h1>Ajouter un contact</h1>
+    <form th:action="@{/addContact}" method="post">
+        <p>Adresse e-mail: <input type="text" th:name="contactName"/></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+</div>
+</body>
+</html>
