@@ -8,5 +8,4 @@ spring:
     platform: postgres
     url: jdbc:postgresql://localhost:5432/paymybuddy
     username: admin
-    password: pmb
     driverClassName: org.postgresql.Driver
