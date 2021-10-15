@@ -22,16 +22,27 @@ public class TransactionService {
 
     private final UserRepository userRepository;
 
-    public TransactionService(InternalTransactionRepository internalTransactionRepository, TransactionRepository transactionRepository, UserRepository userRepository) {
+    private final UserService userService;
+
+    public TransactionService(InternalTransactionRepository internalTransactionRepository, TransactionRepository transactionRepository, UserRepository userRepository, UserService userService) {
         this.internalTransactionRepository = internalTransactionRepository;
         this.transactionRepository = transactionRepository;
         this.userRepository = userRepository;
+        this.userService = userService;
 
     }
 
     @Transactional
     public InternalTransaction addTransaction(String senderEmail, String receiverEmail, double amount, String description) {
+
         User sender = userRepository.findByEmail(senderEmail).orElseThrow(() -> new UsernameNotFoundException(senderEmail));
+        double senderSold = sender.getSold();
+
+        if (amount >= senderSold) {
+            throw new RuntimeException(
+                    "Solde insuffisant");
+        }
+
         User receiver = userRepository.findByEmail(receiverEmail).orElseThrow(() -> new UsernameNotFoundException(receiverEmail));
         double tax = amount * 0.005;
         InternalTransaction internalTransaction = new InternalTransaction();

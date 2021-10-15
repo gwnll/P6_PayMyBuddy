@@ -20,7 +20,6 @@ import java.util.List;
 public class MainController {
 
     final private UserService userService;
-
     final private TransactionService transactionService;
 
     public MainController(UserService userService, TransactionService transactionService) {
@@ -120,11 +119,16 @@ public class MainController {
     }
 
 
-
     @RequestMapping(value = { "/sendMoney" }, method = RequestMethod.POST)
     public ModelAndView addTransaction(Model model, @AuthenticationPrincipal User user,  AddTransactionDTO request) {
 
-        InternalTransaction transaction = transactionService.addTransaction(user.getEmail(), request.getContactName(), request.getAmount(), request.getDescription());
+        try {
+            InternalTransaction transaction = transactionService.addTransaction(user.getEmail(), request.getContactName(), request.getAmount(), request.getDescription());
+            model.addAttribute("message", "La transaction a bien été effectuée !");
+        }
+        catch (RuntimeException e) {
+            model.addAttribute("error", e.getMessage());
+        }
 
         List<ITransaction> transactions = userService.getTransactions(user);
 
@@ -135,7 +139,6 @@ public class MainController {
         model.addAttribute("sold", sold);
         model.addAttribute("transactions", transactions);
         model.addAttribute("contacts", contacts);
-        model.addAttribute("message", "La transaction a bien été effectuée !");
 
         return new ModelAndView("transactions");
     }
@@ -146,7 +149,7 @@ public class MainController {
     }
 
     @RequestMapping(value = { "/subscribe" }, method = RequestMethod.POST)
-    public ModelAndView addTransaction(Model model, AddUserDTO request) {
+    public ModelAndView addUser(Model model, AddUserDTO request) {
 
         try {
             userService.registerNewUserAccount(request.getEmail(), request.getPassword());

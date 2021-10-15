@@ -1,3 +1,5 @@
+INSERT INTO authority (id, authority, code) VALUES (1, 'ADMIN', 0);
+INSERT INTO authority (id, authority, code) VALUES (2, 'USER', 1);
 INSERT INTO customer (id, email, iban, password, sold) VALUES (nextval('customer_id_seq'), 'test@yopmail.com', '123456789', '$2a$10$.NSIwXrQoaSy1SFwJH3O2eUUho4FS8xOpiM94K3Cx5JrRkpmVSJoi', 130);
 INSERT INTO customer (id, email, password, sold) VALUES (nextval('customer_id_seq'), 'test2@yopmail.com', '$2a$10$.NSIwXrQoaSy1SFwJH3O2eUUho4FS8xOpiM94K3Cx5JrRkpmVSJoi', 110);
 INSERT INTO customer (id, email, password, sold) VALUES (nextval('customer_id_seq'), 'test3@yopmail.com', '$2a$10$.NSIwXrQoaSy1SFwJH3O2eUUho4FS8xOpiM94K3Cx5JrRkpmVSJoi', 210);
