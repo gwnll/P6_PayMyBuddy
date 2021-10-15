@@ -22,6 +22,10 @@
 
 <nav id="breadcrumb"><a href="/">Accueil</a> / <a href="/transactions">Transactions</a></nav>
 
+<div th:if="${message}">
+    <p th:text="${message}"></p>
+</div>
+
 <div class="solde-compte">
     <p>Mon solde est de : <strong th:utext="${sold}"></strong> €</p>
     <img src="/img/svg/wallet.svg">
@@ -30,8 +34,8 @@
 <h1>Débiter ou créditer votre compte</h1>
 <form th:action="@{/editSold}" method="post">
     <select th:name="type">
-        <option th:value="débit" th:text="débit"></option>
-        <option th:value="crédit" th:text="crédit"></option>
+        <option th:value="débit" th:text="Débit"></option>
+        <option th:value="crédit" th:text="Crédit"></option>
     </select>
 
     <p>Montant : <input type="number" th:name="amount"/></p>
@@ -43,7 +47,6 @@
 <form th:action="@{/sendMoney}" method="post">
     <p>Choisir un contact :</p>
     <select th:name="contactName">
-        <option></option>
         <option th:each ="contact : ${contacts}" th:value="${contact.email}" th:text="${contact.email}"></option>
     </select>
     <p>Montant : <input type="number" th:name="amount"/></p>

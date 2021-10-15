@@ -38,16 +38,6 @@ public class MainController {
         return new ModelAndView("index");
     }
 
-    @RequestMapping(value = { "/users" }, method = RequestMethod.GET)
-    public ModelAndView viewUsersList(Model model) {
-
-        List<User> users = userService.getUsers();
-
-        model.addAttribute("users", users);
-
-        return new ModelAndView("users");
-    }
-
     @RequestMapping(value = { "/contacts" }, method = RequestMethod.GET)
     public ModelAndView viewContactsList(Model model, @AuthenticationPrincipal User user) {
 
@@ -115,7 +105,18 @@ public class MainController {
 
         Transaction transaction = transactionService.editSold(user, request.getType(), request.getAmount());
 
-        return new ModelAndView("transactionSummary");
+        List<ITransaction> transactions = userService.getTransactions(user);
+
+        List<User> contacts = userService.getContacts(user.getEmail());
+
+        double sold = userService.getUser(user.getEmail()).map(User::getSold).orElseThrow();
+
+        model.addAttribute("sold", sold);
+        model.addAttribute("transactions", transactions);
+        model.addAttribute("contacts", contacts);
+        model.addAttribute("message", "La transaction a bien été effectuée !");
+
+        return new ModelAndView("transactions");
     }
 
 
@@ -125,9 +126,18 @@ public class MainController {
 
         InternalTransaction transaction = transactionService.addTransaction(user.getEmail(), request.getContactName(), request.getAmount(), request.getDescription());
 
-        model.addAttribute("transaction", transaction);
+        List<ITransaction> transactions = userService.getTransactions(user);
 
-        return new ModelAndView("transactionSummary");
+        List<User> contacts = userService.getContacts(user.getEmail());
+
+        double sold = userService.getUser(user.getEmail()).map(User::getSold).orElseThrow();
+
+        model.addAttribute("sold", sold);
+        model.addAttribute("transactions", transactions);
+        model.addAttribute("contacts", contacts);
+        model.addAttribute("message", "La transaction a bien été effectuée !");
+
+        return new ModelAndView("transactions");
     }
 
     @RequestMapping(value = { "/subscription" }, method = RequestMethod.GET)
