@@ -38,7 +38,7 @@ public class TransactionService {
         User sender = userRepository.findByEmail(senderEmail).orElseThrow(() -> new UsernameNotFoundException(senderEmail));
         double senderSold = sender.getSold();
 
-        if (amount >= senderSold) {
+        if (amount > senderSold) {
             throw new RuntimeException(
                     "Solde insuffisant");
         }
@@ -64,6 +64,11 @@ public class TransactionService {
         double newSold = 0;
         Transaction transaction = new Transaction();
         if (type.equals("débit")) {
+            double sold = user.getSold();
+            if (amount > sold) {
+                throw new RuntimeException(
+                        "Solde insuffisant");
+            }
             newSold = user.getSold() - amount;
             transaction.setSign(Sign.MINUS);
         }

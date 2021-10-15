@@ -5,7 +5,7 @@ h1, h2 {
 }
 
 h1 {
-    font-size: 48px;
+    font-size: 42px;
     color: #E07A5F;
     border-bottom: 14px solid #3D405B;
     width: fit-content;
@@ -17,13 +17,13 @@ h1 {
 }
 
 h2 {
-    font-size: 36px;
+    font-size: 30px;
     color: #81B29A;
     font-family: 'Kaisei Tokumin', serif;
 }
 
 h3 {
-    font-size: 30px;
+    font-size: 24px;
     color: #E07A5F;
     font-family: 'Kaisei Opti', serif;
     margin: 0;
@@ -46,7 +46,7 @@ main {
     width: 60%;
     min-width: 800px;
     margin: 0 auto;
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 header {
@@ -261,6 +261,21 @@ select {
 
 /* TRANSACTIONS */
 
+.form-block {
+    display: flex;
+    gap: 25px;
+}
+
+.form-block p {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-block p select {
+    height: 45px;
+}
+
 .historique {
     margin: 0 auto;
     width: 50%;
@@ -289,3 +304,20 @@ select {
     color: rgba(61,64,91, 0.8);
     padding: 5px;
 }
+
+/* MON COMPTE */
+
+{
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    color: #3D405B;
+	background-color: rgba(224, 122, 95, 0.6);
+    box-shadow: 0px 3px 10px rgb(0 0 0 / 20%);
+    gap: 25px;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}}

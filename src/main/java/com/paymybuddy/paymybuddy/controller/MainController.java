@@ -92,7 +92,10 @@ public class MainController {
 
         double sold = userService.getUser(user.getEmail()).map(User::getSold).orElseThrow();
 
+        String currentUser = user.getEmail();
+
         model.addAttribute("sold", sold);
+        model.addAttribute("currentUser", currentUser);
         model.addAttribute("transactions", transactions);
         model.addAttribute("contacts", contacts);
 
@@ -102,18 +105,24 @@ public class MainController {
     @RequestMapping(value = { "/editSold" }, method = RequestMethod.POST)
     public ModelAndView editSold(Model model, @AuthenticationPrincipal User user,  EditSoldDTO request) {
 
-        Transaction transaction = transactionService.editSold(user, request.getType(), request.getAmount());
+        try {
+            Transaction transaction = transactionService.editSold(user, request.getType(), request.getAmount());
+            model.addAttribute("message", "La transaction a bien été effectuée !");
+        }
+        catch (RuntimeException e) {
+            model.addAttribute("error", e.getMessage());
+        }
 
         List<ITransaction> transactions = userService.getTransactions(user);
-
         List<User> contacts = userService.getContacts(user.getEmail());
-
         double sold = userService.getUser(user.getEmail()).map(User::getSold).orElseThrow();
 
+        String currentUser = user.getEmail();
+
         model.addAttribute("sold", sold);
+        model.addAttribute("currentUser", currentUser);
         model.addAttribute("transactions", transactions);
         model.addAttribute("contacts", contacts);
-        model.addAttribute("message", "La transaction a bien été effectuée !");
 
         return new ModelAndView("transactions");
     }
@@ -131,12 +140,13 @@ public class MainController {
         }
 
         List<ITransaction> transactions = userService.getTransactions(user);
-
         List<User> contacts = userService.getContacts(user.getEmail());
-
         double sold = userService.getUser(user.getEmail()).map(User::getSold).orElseThrow();
 
+        String currentUser = user.getEmail();
+
         model.addAttribute("sold", sold);
+        model.addAttribute("currentUser", currentUser);
         model.addAttribute("transactions", transactions);
         model.addAttribute("contacts", contacts);
 
