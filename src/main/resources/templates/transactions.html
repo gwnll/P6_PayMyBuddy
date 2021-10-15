@@ -22,9 +22,13 @@
 
 <nav id="breadcrumb"><a href="/">Accueil</a> / <a href="/transactions">Transactions</a></nav>
 
+<main>
+
 <div th:if="${message}">
     <p th:text="${message}"></p>
 </div>
+
+<div th:if="${error != null}" class="error-message"><p th:utext="${error}"></p></div>
 
 <div class="solde-compte">
     <p>Mon solde est de : <strong th:utext="${sold}"></strong> €</p>
@@ -38,7 +42,7 @@
         <option th:value="crédit" th:text="Crédit"></option>
     </select>
 
-    <p>Montant : <input type="number" th:name="amount"/></p>
+    <p>Montant : <input type="number" th:name="amount" min="1" max="1000" required/></p>
 
     <p class="actions"><input type="submit" value="Envoyer" /> <input type="reset" value="Réinitialiser" /></p>
 </form>
@@ -49,14 +53,14 @@
     <select th:name="contactName">
         <option th:each ="contact : ${contacts}" th:value="${contact.email}" th:text="${contact.email}"></option>
     </select>
-    <p>Montant : <input type="number" th:name="amount"/></p>
+    <p>Montant : <input type="number" th:name="amount" min="1" max="1000" required/></p>
     <p>Description :
         <input type="text" th:name="description"></p>
     <p class="actions"><input type="submit" value="Envoyer" /> <input type="reset" value="Réinitialiser" /></p>
 </form>
 
 <h1>Historique des transactions</h1>
-<div>
+<div class="historique">
     <table border="1" th:if="${transactions.size() > 0}">
         <tr>
             <th>Montant</th>
@@ -78,5 +82,10 @@
     </div>
 
 </div>
+
+</main>
+
+<footer><p>Copyright © 2021 Pay My Buddy - Tous droits réservés</p></footer>
+
 </body>
 </html>

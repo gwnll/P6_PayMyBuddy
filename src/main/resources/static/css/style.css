@@ -258,3 +258,34 @@ select {
     display: flex;
     gap: 30px;
 }
+
+/* TRANSACTIONS */
+
+.historique {
+    margin: 0 auto;
+    width: 50%;
+}
+
+.historique table {
+    width: 100%;
+    border: 14px solid #E07A5F;
+    border-collapse: collapse;
+}
+
+.historique table th,
+.historique table td {
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+}
+
+.historique table th {
+    background-color: rgb(61,64,91);
+    color: rgba(224, 122, 95, 0.9);
+    padding: 10px;
+}
+
+.historique table td {
+    background-color: rgba(224, 122, 95, 0.4);
+    color: rgba(61,64,91, 0.8);
+    padding: 5px;
+}

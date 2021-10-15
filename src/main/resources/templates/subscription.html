@@ -23,8 +23,8 @@
     <br/>Renseignez votre adresse email (celle-ci vous servira afin de vous connecter à votre compte) ainsi que votre mot de passe et le tour est joué.</p>
     <div th:if="${error != null}" class="error-message"><p th:utext="${error}"></p></div>
 <form th:action="@{/subscribe}" method="post">
-    <div class="form-element"><label>Email :</label> <input type="email" th:name="email"/></div>
-    <div class="form-element"><label>Password :</label> <input type="password" th:name="password"/></div>
+    <div class="form-element"><label>Email :</label> <input type="email" th:name="email" required/></div>
+    <div class="form-element"><label>Password :</label> <input type="password" th:name="password" required/></div>
     <p><input type="submit" value="Envoyer" /> <input type="reset" value="Réinitialiser" /></p>
 </form>
 </main>
