@@ -63,6 +63,10 @@ public class TransactionService {
     public Transaction editSold(User user, String type, double amount) {
         double newSold = 0;
         Transaction transaction = new Transaction();
+        if (user.getIban() == null) {
+            throw new RuntimeException(
+                    "Vous n'avez pas encore ajouté de compte bancaire");
+        }
         if (type.equals("débit")) {
             double sold = user.getSold();
             if (amount > sold) {
