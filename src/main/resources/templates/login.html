@@ -28,8 +28,7 @@
 </div>
 <div th:if="${created}">
     <p>Votre compte a bien été créé !</p>
-    <a href="/">Accéder à la page d'accueil</a>
-    <a href="/bankAccount">Ajouter votre compte en banque</a>
+    <p>Vous pouvez maintenant vous identifier.</p>
 </div>
 <form th:action="@{/login}" method="post">
     <div class="form-element"><label>Adresse email :</label> <input type="text" name="username"/> </div>
